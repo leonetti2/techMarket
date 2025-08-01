@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: techMarket
+
+  # Database
+  datasource:
+    url: //URL db
+    username: //username db
+    password: //password db
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# Server
+server:
+  port: 8081
+
+jwt:
+  secret: techmarket-super-secret-key-123456789
+
+web:
+  cors:
+    allowed-origin-patterns: "http://localhost:4200"
+    allowed-methods: "*"
+    allowed-headers: "*"
+    allow-credentials: true
