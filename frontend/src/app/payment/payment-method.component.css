@@ -1,0 +1,54 @@
+.cart-payment {
+  margin-top: 16px;
+}
+.payment-methods-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.payment-method-btn {
+  width: 100%;
+  text-align: left;
+  font-size: 1.1em;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: border 0.2s, background 0.2s;
+}
+.selected-method {
+  border: 2px solid #1976d2;
+  background: #e3f2fd;
+}
+.card-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+.payment-fields {
+  margin-top: 12px;
+}
+mat-form-field {
+  width: 100%;
+}
+.payment-method-container, .mat-card {
+  border-radius: 18px !important;
+  box-shadow: 0 6px 32px #1976d220, 0 1.5px 6px #1976d220 !important;
+  border-top: 4px solid #1976d2 !important;
+  background: #fff !important;
+  font-family: 'Inter', Roboto, Arial, sans-serif !important;
+}
+.payment-btn, .mat-raised-button {
+  background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 1.08em !important;
+  box-shadow: 0 2px 8px #1976d220 !important;
+  transition: background 0.2s, box-shadow 0.2s !important;
+  border: none !important;
+}
+.payment-btn:hover, .mat-raised-button:hover {
+  background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%) !important;
+} 

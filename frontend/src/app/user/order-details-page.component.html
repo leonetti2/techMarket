@@ -1,0 +1,44 @@
+<div class="order-details-page-box" *ngIf="order">
+  <div class="order-details-page-header">
+    <span class="order-details-page-title">Dettaglio ordine #{{ order.orderId }}</span>
+    <button mat-icon-button (click)="router.navigate(['/user'])" aria-label="Chiudi" style="margin-left: auto;">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="order-details-fields">
+    <div class="order-details-row"><span class="order-details-label">Data</span><span class="order-details-value">{{ order.createdAt | date:'short' }}</span></div>
+    <div class="order-details-row"><span class="order-details-label">Stato</span><span class="order-status-badge" [ngClass]="order.status">{{ getStatusLabel(order.status) }}</span></div>
+    <div class="order-details-row"><span class="order-details-label">Totale</span><span class="order-details-value">{{ order.totalPrice | currency:'EUR' }}</span></div>
+    <div class="order-details-row"><span class="order-details-label">Metodo di pagamento</span><span class="order-details-value">{{ order.paymentMethod || '-' }}</span></div>
+  </div>
+  <div class="order-products-list-scroll">
+    <h5 class="order-products-title">Prodotti</h5>
+    <table class="order-products-table-modal">
+      <thead>
+        <tr>
+          <th>Prodotto</th>
+          <th>Quantità</th>
+          <th>Prezzo unitario</th>
+          <th>Subtotale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of order.items">
+          <td>{{ item.productName }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.price | currency:'EUR' }}</td>
+          <td>{{ item.price * item.quantity | currency:'EUR' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="order-details-actions" *ngIf="canRequestReturn()">
+    <button class="profile-action-btn profile-action-main" (click)="requestReturn()">
+      <mat-icon class="profile-action-icon">undo</mat-icon>
+      Richiedi reso
+    </button>
+  </div>
+  <!-- toast di successo/errore -->
+</div>
+<div *ngIf="loading" class="order-details-loading">Caricamento...</div>
+<div *ngIf="error" class="order-details-error">Errore nel caricamento dell'ordine.</div> 

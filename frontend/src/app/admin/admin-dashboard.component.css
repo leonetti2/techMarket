@@ -1,0 +1,99 @@
+.admin-navbar {
+  display: flex;
+  align-items: center;
+  background: #1976d2 !important;
+  color: #fff !important;
+  padding: 0.5rem 2rem;
+  font-size: 1.1em;
+  margin-bottom: 24px;
+  border-radius: 0 0 18px 18px !important;
+  box-shadow: 0 2px 8px #1976d220 !important;
+}
+.admin-navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 2rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.admin-navbar a.active, .admin-navbar a:hover {
+  color: #ffeb3b;
+  text-decoration: underline;
+}
+.admin-navbar .spacer {
+  flex: 1 1 auto;
+}
+.admin-navbar button {
+  margin-left: 2rem;
+  background: #fff;
+  color: #d32f2f;
+  border-color: #fff;
+}
+.admin-navbar button:hover {
+  background: #ffeaea;
+  color: #b71c1c;
+}
+.admin-dashboard-container {
+  max-width: 900px;
+  margin: 32px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #0002;
+  padding: 32px 24px;
+  text-align: center;
+}
+.dashboard-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  margin: 32px 0 16px 0;
+}
+.stat-box {
+  background: #e3f2fd;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #1976d220;
+  padding: 28px 36px;
+  min-width: 180px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stat-value {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 1.1em;
+  color: #555;
+}
+.dashboard-placeholder {
+  margin-top: 32px;
+  color: #888;
+  font-size: 1.2em;
+}
+.admin-dashboard-container, .admin-navbar {
+  border-radius: 18px !important;
+  box-shadow: 0 6px 32px #1976d220, 0 1.5px 6px #1976d220 !important;
+  border-top: 4px solid #1976d2 !important;
+  font-family: 'Inter', Roboto, Arial, sans-serif !important;
+}
+.admin-navbar a, .admin-navbar button {
+  color: #fff !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  transition: background 0.2s !important;
+}
+.admin-navbar a:hover, .admin-navbar button:hover {
+  background: #1565c0 !important;
+}
+.stat-box {
+  background: #e3f2fd !important;
+  color: #1976d2 !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px #1976d220 !important;
+} 

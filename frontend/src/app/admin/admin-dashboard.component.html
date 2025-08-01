@@ -1,0 +1,25 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="admin-dashboard-container">
+  <h2>Dashboard amministratore</h2>
+  <div class="dashboard-stats">
+    <div class="stat-box">
+      <div class="stat-value">{{ stats?.totalOrders ?? '...' }}</div>
+      <div class="stat-label">Ordini totali</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">{{ stats?.totalProducts ?? '...' }}</div>
+      <div class="stat-label">Prodotti totali</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">{{ stats?.totalUsers ?? '...' }}</div>
+      <div class="stat-label">Utenti totali</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">{{ stats?.totalSales != null ? (stats.totalSales | number:'1.2-2') + ' €' : '...' }}</div>
+      <div class="stat-label">Totale vendite</div>
+    </div>
+  </div>
+  <div class="dashboard-placeholder" *ngIf="!stats">
+    <p>Caricamento statistiche...</p>
+  </div>
+</div> 

@@ -1,0 +1,35 @@
+<div class="order-popup-modal">
+  <div class="order-popup-header">
+    <span class="order-popup-title">Dettaglio ordine #{{ data.order.orderId }}</span>
+    <button mat-icon-button class="order-popup-close" (click)="dialogRef.close()" aria-label="Chiudi">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="order-details-fields">
+    <div class="order-details-row"><span class="order-details-label">Data</span><span class="order-details-value">{{ data.details.createdAt | date:'short' }}</span></div>
+    <div class="order-details-row"><span class="order-details-label">Stato</span><span class="order-status-badge" [ngClass]="data.details.status">{{ data.details.status }}</span></div>
+    <div class="order-details-row"><span class="order-details-label">Totale</span><span class="order-details-value">{{ data.details.totalPrice | currency:'EUR' }}</span></div>
+    <div class="order-details-row"><span class="order-details-label">Metodo di pagamento</span><span class="order-details-value">{{ data.details.paymentMethod || '-' }}</span></div>
+  </div>
+  <div class="order-products-list-scroll">
+    <h5 class="order-products-title">Prodotti</h5>
+    <table class="order-products-table-modal">
+      <thead>
+        <tr>
+          <th>Prodotto</th>
+          <th>Quantità</th>
+          <th>Prezzo unitario</th>
+          <th>Subtotale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data.details.items">
+          <td>{{ item.productName }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.price | currency:'EUR' }}</td>
+          <td>{{ item.price * item.quantity | currency:'EUR' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

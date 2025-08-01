@@ -1,0 +1,54 @@
+<app-navbar [cartCount]="cartCount$ | async"></app-navbar>
+<div class="search-container">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Cerca prodotti</mat-label>
+    <input matInput [(ngModel)]="search" (ngModelChange)="onFilterChange()" placeholder="Cerca...">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Categoria</mat-label>
+    <mat-select [(ngModel)]="selectedCategory" (selectionChange)="onFilterChange()">
+      <mat-option value="">Tutte</mat-option>
+      <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Marca</mat-label>
+    <mat-select [(ngModel)]="selectedBrand" (selectionChange)="onFilterChange()">
+      <mat-option value="">Tutte</mat-option>
+      <mat-option *ngFor="let brand of brands" [value]="brand">{{ brand }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Ordina per prezzo</mat-label>
+    <mat-select [(ngModel)]="sortPrice" (selectionChange)="onFilterChange()">
+      <mat-option value="">Nessun ordinamento</mat-option>
+      <mat-option value="asc">Prezzo crescente</mat-option>
+      <mat-option value="desc">Prezzo decrescente</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="catalog-grid">
+  <mat-card *ngFor="let product of products; let i = index" class="product-card" (click)="openProductDialog(product)">
+    <div class="product-image-container">
+      <img class="product-image" [src]="getImageUrl(product.imageUrl)" alt="Immagine prodotto" [attr.loading]="i === 0 ? 'eager' : 'lazy'">
+    </div>
+    <mat-card-header>
+      <mat-card-title class="product-title">{{ product.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="product-info">
+        <span class="product-brand">{{ product.brand }}</span>
+        <span class="product-category">{{ product.cateogory || product.category }}</span>
+      </div>
+      <div class="product-price">{{ product.price | currency:'EUR' }}</div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="accent" (click)="addToCart(product); $event.stopPropagation();">Aggiungi al carrello</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<div class="pagination-container">
+  <button mat-stroked-button (click)="prevPage()" [disabled]="pageNumber === 0">&lt; Precedente</button>
+  <span class="page-info">Pagina {{ pageNumber + 1 }} di {{ totalPages }}</span>
+  <button mat-stroked-button (click)="nextPage()" [disabled]="pageNumber >= totalPages - 1">Successiva &gt;</button>
+</div> 

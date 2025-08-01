@@ -1,0 +1,46 @@
+<div class="cart-payment">
+  <label><strong>Metodo di pagamento:</strong></label>
+  <div class="payment-methods-vertical">
+    <ng-container *ngFor="let method of methods">
+      <button mat-raised-button
+        [ngClass]="{'selected-method': paymentMethod === method.value}"
+        (click)="selectMethod(method.value)"
+        class="payment-method-btn">
+        {{ method.label }}
+      </button>
+      <ng-container *ngIf="paymentMethod === method.value">
+        <ng-container *ngIf="paymentMethod">
+          <div *ngIf="method.value === 'CARTA'" class="payment-fields card-fields-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>Numero carta</mat-label>
+              <input matInput [(ngModel)]="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" (ngModelChange)="emitPayment()">
+              <mat-hint>Solo numeri, senza spazi</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Intestatario</mat-label>
+              <input matInput [(ngModel)]="cardHolder" placeholder="Nome Cognome" (ngModelChange)="emitPayment()">
+              <mat-hint>Come riportato sulla carta</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Scadenza</mat-label>
+              <input matInput [(ngModel)]="cardExpiry" maxlength="5" placeholder="MM/AA" (ngModelChange)="emitPayment()">
+              <mat-hint>Formato MM/AA</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>CVV</mat-label>
+              <input matInput [(ngModel)]="cardCvv" maxlength="4" placeholder="123" (ngModelChange)="emitPayment()">
+              <mat-hint>3 cifre sul retro</mat-hint>
+            </mat-form-field>
+          </div>
+          <div *ngIf="method.value === 'PAYPAL'" class="payment-fields">
+            <mat-form-field appearance="outline">
+              <mat-label>Email PayPal</mat-label>
+              <input matInput [(ngModel)]="paypalEmail" type="email" placeholder="email@paypal.com" (ngModelChange)="emitPayment()">
+              <mat-hint>Inserisci l'email associata a PayPal</mat-hint>
+            </mat-form-field>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+</div> 

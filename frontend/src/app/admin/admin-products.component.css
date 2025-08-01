@@ -1,0 +1,94 @@
+.admin-products-container {
+  max-width: 900px;
+  margin: 32px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #0002;
+  padding: 32px 24px;
+}
+table { width: 100%; margin-bottom: 24px; }
+th, td { text-align: left; padding: 10px 8px; }
+th { color: #1976d2; font-weight: 600; background: #e3f2fd; }
+.product-form-modal {
+  background: #f5faff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #1976d210;
+  padding: 24px 20px;
+  max-width: 400px;
+  margin: 32px auto 0 auto;
+}
+input, textarea {
+  font-size: 1.08em;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #bdbdbd;
+  outline: none;
+  transition: border 0.2s;
+}
+input:focus, textarea:focus {
+  border: 1.5px solid #1976d2;
+}
+input.invalid-field, textarea.invalid-field {
+  border: 1.5px solid #d32f2f;
+  background: #fff6f6;
+}
+.field-error {
+  color: #d32f2f;
+  font-size: 0.98em;
+  margin-top: -8px;
+  margin-bottom: 6px;
+  margin-left: 2px;
+}
+.snackbar-success { background: #388e3c; color: #fff; }
+.snackbar-error { background: #d32f2f; color: #fff; }
+.admin-navbar {
+  display: flex;
+  align-items: center;
+  background: #1976d2;
+  padding: 0.5rem 2rem;
+  color: #fff;
+  font-size: 1.1em;
+  margin-bottom: 24px;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 2px 8px #1976d220;
+}
+.admin-navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 2rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.admin-navbar a.active, .admin-navbar a:hover {
+  color: #ffeb3b;
+  text-decoration: underline;
+}
+.admin-navbar .spacer {
+  flex: 1 1 auto;
+}
+.admin-navbar button {
+  margin-left: 2rem;
+  background: #fff;
+  color: #d32f2f;
+  border-color: #fff;
+}
+.admin-navbar button:hover {
+  background: #ffeaea;
+  color: #b71c1c;
+} 
+.admin-products-container, .admin-navbar {
+  border-radius: 18px !important;
+  box-shadow: 0 6px 32px #1976d220, 0 1.5px 6px #1976d220 !important;
+  border-top: 4px solid #1976d2 !important;
+  background: #fff !important;
+  font-family: 'Inter', Roboto, Arial, sans-serif !important;
+}
+.admin-navbar a, .admin-navbar button {
+  color: #fff !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  transition: background 0.2s !important;
+}
+.admin-navbar a:hover, .admin-navbar button:hover {
+  background: #1565c0 !important;
+} 

@@ -1,0 +1,70 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(120deg, #e3f0ff 0%, #f8fbff 100%);
+  color: #222;
+}
+
+.card-modern, .mat-mdc-card, mat-card {
+  border-radius: 18px !important;
+  box-shadow: 0 6px 32px #1976d220, 0 1.5px 6px #1976d220 !important;
+  border-top: 4px solid #1976d2 !important;
+  background: #fff !important;
+}
+
+.btn-modern, .mat-mdc-raised-button, .mat-raised-button {
+  background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 1.08em !important;
+  box-shadow: 0 2px 8px #1976d220 !important;
+  transition: background 0.2s, box-shadow 0.2s !important;
+  border: none !important;
+}
+.btn-modern:hover, .mat-mdc-raised-button:hover, .mat-raised-button:hover {
+  background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%) !important;
+}
+
+.mat-mdc-form-field, mat-form-field {
+  background: #f5faff !important;
+  border-radius: 8px !important;
+}
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-outline, mat-form-field.mat-focused .mat-form-field-outline {
+  border-color: #1976d2 !important;
+  box-shadow: 0 0 0 2px #1976d230 !important;
+  transition: box-shadow 0.2s !important;
+}
+
+.mat-error {
+  min-height: 22px;
+  display: block;
+  color: #d32f2f;
+  font-size: 0.98em;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  line-height: 1.2;
+  transition: color 0.2s;
+}
+
+.snackbar-success {
+  background: #43a047 !important;
+  color: #fff !important;
+  font-size: 1.1em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+}
+
+.snackbar-error {
+  background: #d32f2f !important;
+  color: #fff !important;
+  font-size: 1.1em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+}

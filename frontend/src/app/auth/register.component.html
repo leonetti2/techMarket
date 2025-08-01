@@ -1,0 +1,68 @@
+<div class="register-bg-modern">
+  <div class="register-container-modern">
+    <mat-card>
+      <h2>Registrati</h2>
+      <form (ngSubmit)="register()" #registerForm="ngForm">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <mat-icon matPrefix>mail</mat-icon>
+          <input matInput [(ngModel)]="email" name="email" type="email" required autocomplete="email" placeholder="Email" #emailCtrl="ngModel">
+          <mat-error *ngIf="(emailCtrl.dirty || emailCtrl.touched)">
+            <span *ngIf="!isEmailValid()">Inserisci un'email valida (esempio&#64;email.com)</span>
+            <span *ngIf="isEmailValid()">&nbsp;</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput [(ngModel)]="password" name="password" type="password" required autocomplete="new-password" placeholder="Password" #passwordCtrl="ngModel">
+          <mat-error *ngIf="(passwordCtrl.dirty || passwordCtrl.touched)">
+            <span *ngIf="!isPasswordValid()">La password deve essere almeno 8 caratteri, lettere e numeri</span>
+            <span *ngIf="isPasswordValid()">&nbsp;</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nome</mat-label>
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput [(ngModel)]="firstName" name="firstName" required maxlength="30" placeholder="Nome" #firstNameCtrl="ngModel">
+          <mat-error *ngIf="(firstNameCtrl.dirty || firstNameCtrl.touched)">
+            <span *ngIf="!isFirstNameValid()">Il nome è obbligatorio (max 30 caratteri)</span>
+            <span *ngIf="isFirstNameValid()">&nbsp;</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Cognome</mat-label>
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput [(ngModel)]="lastName" name="lastName" required maxlength="30" placeholder="Cognome" #lastNameCtrl="ngModel">
+          <mat-error *ngIf="(lastNameCtrl.dirty || lastNameCtrl.touched)">
+            <span *ngIf="!isLastNameValid()">Il cognome è obbligatorio (max 30 caratteri)</span>
+            <span *ngIf="isLastNameValid()">&nbsp;</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Telefono</mat-label>
+          <mat-icon matPrefix>phone</mat-icon>
+          <input matInput [(ngModel)]="telephoneNumber" name="telephoneNumber" required pattern="^[0-9]{10}$" maxlength="10" placeholder="Telefono" #telephoneCtrl="ngModel">
+          <mat-error *ngIf="(telephoneCtrl.dirty || telephoneCtrl.touched)">
+            <span *ngIf="!isTelephoneValid()">Inserisci un numero di telefono valido (10 cifre)</span>
+            <span *ngIf="isTelephoneValid()">&nbsp;</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Indirizzo</mat-label>
+          <mat-icon matPrefix>home</mat-icon>
+          <input matInput [(ngModel)]="address" name="address" maxlength="60" placeholder="Indirizzo" #addressCtrl="ngModel">
+          <mat-error *ngIf="(addressCtrl.dirty || addressCtrl.touched)">
+            <span *ngIf="!isAddressValid()">L'indirizzo può essere lungo al massimo 60 caratteri</span>
+            <span *ngIf="isAddressValid()">&nbsp;</span>
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="full-width register-btn-modern" type="submit" [disabled]="!isFormValid()">Registrati</button>
+        <mat-error *ngIf="error">{{error}}</mat-error>
+      </form>
+      <div class="switch-link-modern">
+        <a href="#" (click)="$event.preventDefault(); switchToLogin.emit()">Hai già un account? <b>Accedi</b></a>
+      </div>
+    </mat-card>
+  </div>
+</div> 

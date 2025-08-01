@@ -1,0 +1,137 @@
+<app-navbar [cartCount]="0"></app-navbar>
+<div class="user-area-container">
+  <div class="profile-box">
+    <div class="profile-header">
+      <div class="profile-greeting">
+        <span>Ciao {{ user?.firstName || 'Utente' }}!</span>
+      </div>
+    </div>
+    <div class="profile-fields">
+      <div class="profile-row"><span class="profile-label">Nome</span><span class="profile-value">{{ user?.firstName }}</span></div>
+      <div class="profile-row"><span class="profile-label">Cognome</span><span class="profile-value">{{ user?.lastName }}</span></div>
+      <div class="profile-row"><span class="profile-label">Email</span><span class="profile-value">{{ user?.email }}</span></div>
+      <div class="profile-row"><span class="profile-label">Telefono</span><span class="profile-value">{{ user?.telephoneNumber }}</span></div>
+      <div class="profile-row"><span class="profile-label">Indirizzo</span><span class="profile-value">{{ user?.address }}</span></div>
+    </div>
+    <div class="profile-btns">
+      <button class="profile-action-btn profile-action-main" (click)="toggleEditMode()">
+        <mat-icon class="profile-action-icon">edit</mat-icon>
+        Modifica dati
+      </button>
+      <button class="profile-action-btn profile-action-main" (click)="togglePasswordForm()">
+        <mat-icon class="profile-action-icon">lock</mat-icon>
+        Cambia password
+      </button>
+    </div>
+    <form *ngIf="editMode" class="user-edit-form profile-form-container" #userForm="ngForm" (ngSubmit)="saveUser()">
+      <div class="edit-form-grid edit-form-grid-2x2">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput [(ngModel)]="editUser.firstName" name="firstName" required maxlength="30" #firstName="ngModel">
+          <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+            <span *ngIf="firstName.errors?.['required']">Il nome è obbligatorio.</span>
+            <span *ngIf="firstName.errors?.['maxlength']">Massimo 30 caratteri.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cognome</mat-label>
+          <input matInput [(ngModel)]="editUser.lastName" name="lastName" required maxlength="30" #lastName="ngModel">
+          <mat-error *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+            <span *ngIf="lastName.errors?.['required']">Il cognome è obbligatorio.</span>
+            <span *ngIf="lastName.errors?.['maxlength']">Massimo 30 caratteri.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Telefono</mat-label>
+          <input matInput [(ngModel)]="editUser.telephoneNumber" name="telephoneNumber" required pattern="^[0-9]{10}$" maxlength="10" #telephoneNumber="ngModel">
+          <mat-error *ngIf="telephoneNumber.invalid && (telephoneNumber.dirty || telephoneNumber.touched)">
+            <span *ngIf="telephoneNumber.errors?.['required']">Il telefono è obbligatorio.</span>
+            <span *ngIf="telephoneNumber.errors?.['pattern']">Deve essere una stringa di 10 cifre senza spazi o simboli.</span>
+            <span *ngIf="telephoneNumber.errors?.['maxlength']">Deve essere di 10 cifre.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Indirizzo</mat-label>
+          <input matInput [(ngModel)]="editUser.address" name="address" maxlength="60" #address="ngModel">
+          <mat-error *ngIf="address.invalid && (address.dirty || address.touched)">
+            <span *ngIf="address.errors?.['maxlength']">Massimo 60 caratteri.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-actions">
+        <button class="profile-action-btn profile-action-main" type="submit" [disabled]="saving || userForm.invalid">{{ saving ? 'Salvataggio...' : 'Salva modifiche' }}</button>
+        <button class="profile-action-btn profile-action-main" type="button" (click)="cancelEdit()" [disabled]="saving">Annulla</button>
+      </div>
+    </form>
+    <form *ngIf="showPasswordForm" class="user-edit-form profile-form-container profile-form-singlecol" #passwordForm="ngForm" (ngSubmit)="changePassword()">
+      <div class="edit-form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Vecchia password</mat-label>
+          <input matInput [(ngModel)]="oldPassword" name="oldPassword" type="password" required autocomplete="current-password" #oldPasswordCtrl="ngModel">
+          <mat-error *ngIf="oldPasswordCtrl.invalid && (oldPasswordCtrl.dirty || oldPasswordCtrl.touched)">
+            <span *ngIf="oldPasswordCtrl.errors?.['required']">Campo obbligatorio.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nuova password</mat-label>
+          <input matInput [(ngModel)]="newPassword" name="newPassword" type="password" required minlength="8" maxlength="32" autocomplete="new-password" #newPasswordCtrl="ngModel">
+          <mat-error *ngIf="newPasswordCtrl.invalid && (newPasswordCtrl.dirty || newPasswordCtrl.touched)">
+            <span *ngIf="newPasswordCtrl.errors?.['required']">Campo obbligatorio.</span>
+            <span *ngIf="newPasswordCtrl.errors?.['minlength']">Minimo 8 caratteri.</span>
+            <span *ngIf="newPasswordCtrl.errors?.['maxlength']">Massimo 32 caratteri.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Conferma nuova password</mat-label>
+          <input matInput [(ngModel)]="confirmPassword" name="confirmPassword" type="password" required autocomplete="new-password" #confirmPasswordCtrl="ngModel">
+          <mat-error *ngIf="confirmPasswordCtrl.invalid && (confirmPasswordCtrl.dirty || confirmPasswordCtrl.touched)">
+            <span *ngIf="confirmPasswordCtrl.errors?.['required']">Campo obbligatorio.</span>
+            <span *ngIf="confirmPassword !== newPassword && confirmPasswordCtrl.dirty">Le password non coincidono.</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-actions">
+        <button class="profile-action-btn profile-action-main" type="submit" [disabled]="savingPassword || passwordForm.invalid || confirmPassword !== newPassword">
+          {{ savingPassword ? 'Salvataggio...' : 'Salva password' }}
+        </button>
+        <button class="profile-action-btn profile-action-main" type="button" (click)="cancelPasswordChange()" [disabled]="savingPassword">Annulla</button>
+      </div>
+      <div *ngIf="passwordError" class="form-error">{{ passwordError }}</div>
+      <div *ngIf="passwordSuccess" class="form-success">{{ passwordSuccess }}</div>
+    </form>
+  </div>
+  <div class="orders-box">
+    <div class="orders-header">
+      <mat-icon>history</mat-icon>
+      <span>Storico ordini</span>
+    </div>
+    <div class="orders-table-wrapper">
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Totale</th>
+            <th>Stato</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{ order.orderId }}</td>
+            <td>{{ order.createdAt | date:'short' }}</td>
+            <td>{{ order.totalPrice | currency:'EUR' }}</td>
+            <td>
+              <span class="order-status-badge" [ngClass]="order.status">
+                {{ order.status }}
+              </span>
+            </td>
+            <td>
+              <mat-icon class="order-action-icon" (click)="showOrderDetails(order)" title="Dettagli ordine">visibility</mat-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> 

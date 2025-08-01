@@ -1,0 +1,120 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="admin-orders-container">
+  <h2>Gestione Ordini</h2>
+  <!-- Filtri avanzati -->
+  <div class="filters-container">
+    <!-- RIMOSSO: Filtro stato ordine -->
+    <mat-form-field appearance="outline">
+      <mat-label>Cerca per email utente</mat-label>
+      <input matInput [(ngModel)]="emailFilter" (ngModelChange)="onFilterChange()" placeholder="email@example.com">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Data da</mat-label>
+      <input matInput [(ngModel)]="dateFrom" (ngModelChange)="onFilterChange()" type="date">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Data a</mat-label>
+      <input matInput [(ngModel)]="dateTo" (ngModelChange)="onFilterChange()" type="date">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Totale min</mat-label>
+      <input matInput [(ngModel)]="minTotal" (ngModelChange)="onFilterChange()" type="number" min="0">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Totale max</mat-label>
+      <input matInput [(ngModel)]="maxTotal" (ngModelChange)="onFilterChange()" type="number" min="0">
+    </mat-form-field>
+  </div>
+  <!-- Paginazione -->
+  <div class="pagination-controls" *ngIf="totalOrders > pageSize" style="margin-bottom: 18px; text-align: right;">
+    <button mat-button (click)="prevPage()" [disabled]="pageNumber === 0">&lt; Precedente</button>
+    <span>Pagina {{ pageNumber + 1 }} di {{ getTotalPages() }}</span>
+    <button mat-button (click)="nextPage()" [disabled]="(pageNumber + 1) * pageSize >= totalOrders">Successiva &gt;</button>
+    <span style="margin-left: 18px; color: #888;">Totale ordini: {{ totalOrders }}</span>
+  </div>
+  <!-- Tabella ordini -->
+  <table mat-table [dataSource]="filteredOrders" class="mat-elevation-z8" *ngIf="filteredOrders.length > 0">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID Ordine</th>
+      <td mat-cell *matCellDef="let order">#{{ order.orderId }}</td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Data</th>
+      <td mat-cell *matCellDef="let order">{{ order.createdAt | date:'short' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="userEmail">
+      <th mat-header-cell *matHeaderCellDef>Email Utente</th>
+      <td mat-cell *matCellDef="let order">{{ order.user?.email }}</td>
+    </ng-container>
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>Totale</th>
+      <td mat-cell *matCellDef="let order">{{ order.totalPrice | currency:'EUR' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Stato</th>
+      <td mat-cell *matCellDef="let order">
+        <span class="status-badge status-{{ order.status.toLowerCase() }}">
+          {{ getStatusLabel(order.status) }}
+        </span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Azioni</th>
+      <td mat-cell *matCellDef="let order">
+        <button mat-icon-button color="primary" (click)="viewOrderDetails(order)" title="Vedi dettagli">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div *ngIf="filteredOrders.length === 0" style="margin-top: 32px; color: #888; text-align: center;">
+    {{ orders.length === 0 ? 'Nessun ordine presente.' : 'Nessun ordine trovato con i filtri applicati.' }}
+  </div>
+  <!-- Dettaglio ordine -->
+  <div *ngIf="selectedOrder" class="order-details-modal">
+    <h3>Dettaglio Ordine #{{ selectedOrder.orderId }}</h3>
+    <div class="order-info">
+      <p><strong>Data:</strong> {{ selectedOrder.createdAt | date:'full' }}</p>
+      <p><strong>Stato:</strong> 
+        <span class="status-badge status-{{ selectedOrder.status.toLowerCase() }}">
+          {{ getStatusLabel(selectedOrder.status) }}
+        </span>
+      </p>
+      <p><strong>Totale:</strong> {{ selectedOrder.totalPrice | currency:'EUR' }}</p>
+    </div>
+    <div class="user-info" *ngIf="selectedOrder.user">
+      <h4>Dati utente</h4>
+      <p><strong>Nome:</strong> {{ selectedOrder.user.firstName }}</p>
+      <p><strong>Cognome:</strong> {{ selectedOrder.user.lastName }}</p>
+      <p><strong>Email:</strong> {{ selectedOrder.user.email }}</p>
+      <p><strong>Telefono:</strong> {{ selectedOrder.user.telephoneNumber }}</p>
+      <p><strong>Indirizzo:</strong> {{ selectedOrder.user.address }}</p>
+    </div>
+    <div class="order-items">
+      <h4>Prodotti ordinati:</h4>
+      <table class="items-table">
+        <thead>
+          <tr>
+            <th>Prodotto</th>
+            <th>Quantità</th>
+            <th>Prezzo unitario</th>
+            <th>Subtotale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of selectedOrder.items">
+            <td>{{ item.productName }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price | currency:'EUR' }}</td>
+            <td>{{ item.price * item.quantity | currency:'EUR' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="order-actions">
+      <button mat-raised-button color="primary" (click)="closeOrderDetails()">Chiudi</button>
+    </div>
+  </div>
+</div> 

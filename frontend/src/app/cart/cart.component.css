@@ -1,0 +1,94 @@
+.cart-container, .mat-card {
+  border-radius: 18px !important;
+  box-shadow: 0 6px 32px #1976d220, 0 1.5px 6px #1976d220 !important;
+  border-top: 4px solid #1976d2 !important;
+  background: #fff !important;
+  font-family: 'Inter', Roboto, Arial, sans-serif !important;
+}
+.cart-btn, .mat-raised-button {
+  background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 1.08em !important;
+  box-shadow: 0 2px 8px #1976d220 !important;
+  transition: background 0.2s, box-shadow 0.2s !important;
+  border: none !important;
+}
+.cart-btn:hover, .mat-raised-button:hover {
+  background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%) !important;
+}
+.cart-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0.2em;
+  text-align: center;
+}
+.cart-subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 24px;
+  font-size: 1.1em;
+}
+.cart-total-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #e3f2fd;
+  border-radius: 8px;
+  padding: 16px 24px;
+  font-size: 1.3em;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px #0001;
+  justify-content: center;
+}
+.cart-table {
+  margin-bottom: 24px;
+}
+.empty-cart {
+  margin-top: 32px;
+  text-align: center;
+  color: #888;
+  font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cart-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+.fade-in {
+  animation: fadeIn 0.5s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+.order-success {
+  margin-top: 48px;
+  text-align: center;
+  color: #388e3c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.order-success-title {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-top: 12px;
+}
+.order-success-msg {
+  margin-top: 8px;
+  color: #444;
+  font-size: 1.1em;
+}
+button[mat-raised-button], button[mat-button] {
+  font-size: 1.08em;
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+} 

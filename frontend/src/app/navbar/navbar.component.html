@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" class="navbar">
+  <span class="navbar-logo" (click)="goToHome()" style="cursor:pointer; font-weight:600; font-size:1.2em;">TechMarket</span>
+  <span class="navbar-spacer"></span>
+  <button mat-icon-button (click)="goToHome()" aria-label="Home">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button mat-icon-button (click)="goToCart()" aria-label="Carrello" [matBadge]="displayCartCount" matBadgeColor="warn" [matBadgeHidden]="displayCartCount === 0">
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+  <button mat-icon-button (click)="goToUserArea()" aria-label="Area utente">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <button *ngIf="isAdmin()" mat-icon-button (click)="goToAdminProducts()" aria-label="Gestione prodotti">
+    <mat-icon>admin_panel_settings</mat-icon>
+  </button>
+  <button mat-icon-button (click)="logout()" aria-label="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar> 
